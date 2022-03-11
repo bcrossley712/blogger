@@ -24,7 +24,7 @@
 
       <div class="col-6 mb-3">
         <input
-          v-model="editable.imgUrl"
+          v-model="editable.coverImg"
           type="text"
           class="form-control"
           name="imgUrl"
@@ -52,9 +52,9 @@
 import { ref } from "@vue/reactivity";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import { profilesService } from "../services/ProfilesService";
 import { AppState } from "../AppState";
 import { Modal } from "bootstrap";
+import { accountService } from "../services/AccountService";
 export default {
   setup() {
     const editable = ref({});
@@ -63,10 +63,7 @@ export default {
       async editProfile() {
         try {
           //Pass the id from the active profile in the AppState and data from editable object
-          await profilesService.editProfile(
-            AppState.profile.id,
-            editable.value
-          );
+          await accountService.editAccount(editable.value);
           Modal.getOrCreateInstance(
             document.getElementById("profile-modal")
           ).hide();
